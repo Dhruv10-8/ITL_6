@@ -30,21 +30,6 @@ export default async function Home() {
     },
   };
 
-  // Fetch commodity prices
-  const commodityName = 'feeder_cattle';
-  const commodityResponse = await fetch('https://api.api-ninjas.com/v1/commodityprice?name='+commodityName, {
-    headers: {
-      'X-Api-Key': 'ck0955SxMCrczdUNquXv5JJyAMsbYwID7ubW6dcZ'
-      // Replace with your actual API key
-    }
-  });
-  
-  if (!commodityResponse.ok) {
-    console.error('Error fetching commodity prices:', commodityResponse.statusText);
-    return null; // Handle error gracefully
-  }
-  
-  const commodityData = await commodityResponse.json();
   
   // Prepare content to display weather data
   const weatherDisplay = weatherData.daily.time.map((time, index) => (
@@ -54,24 +39,14 @@ export default async function Home() {
     </div>
   ));
 
-  // Prepare content to display commodity prices
-  const commodityDisplay = (
-    <div className={styles.commodityEntry}>
-      <h2>Commodity Prices</h2>
-      {commodityData && commodityData.length > 0 ? (
-        <p><strong>{commodityName.charAt(0).toUpperCase() + commodityName.slice(1)} Price:</strong> ${commodityData[0].price}</p>
-      ) : (
-        <p>No data available for {commodityName}.</p>
-      )}
-    </div>
-  );
+
 
   return (
     <div className={styles.page}>
       <main className={styles.main}>
         <h1>Daily Weather Forecast</h1>
         {weatherDisplay}
-        {commodityDisplay}
+      
       </main>
     </div>
   );
